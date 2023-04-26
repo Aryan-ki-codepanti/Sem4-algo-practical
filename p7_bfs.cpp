@@ -73,7 +73,6 @@ public:
                 cout << parent[i] << " -> " << i << endl;
         }
     }
-
 };
 
 int main()
@@ -88,7 +87,7 @@ int main()
     g.add_edge(2, 3);
 
     // g.bfs(0);
-    
+
     Graph g2(5);
     g2.add_edge(0, 2);
     g2.add_edge(0, 1);
