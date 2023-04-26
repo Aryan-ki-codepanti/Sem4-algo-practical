@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "*.jsx": "javascriptreact",
+        "*.rmd": "markdown",
+        "*.sql": "oraclesql",
+        "*.cpp": "cpp",
+        "iostream": "cpp"
+    }
+}
