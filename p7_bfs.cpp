@@ -66,7 +66,7 @@ public:
         }
 
         cout << endl;
-        cout << "BFS tree" << endl;
+        cout << "BFS tree (parent -> child)" << endl;
         for (int i = 0; i < n; i++)
         {
             if (parent[i] != -1)
