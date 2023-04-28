@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -27,7 +26,6 @@ void bucket_sort(float arr[], int n)
     vector<float> buckets[n];
 
     // inserting elements to the bucket
-
     int bucket;
     for (int i = 0; i < n; i++)
     {
