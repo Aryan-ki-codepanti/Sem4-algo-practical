@@ -1,11 +1,30 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void trace_solution(int values[], int weights[], int n, int W){}
+void trace_solution(int values[], int weights[], vector<vector<int>> dp, int W, int j)
+{
+    if (j == 0)
+        return;
+
+    // exclusion 1
+    else if (weights[j - 1] > W)
+        trace_solution(values, weights, dp, W, j - 1);
+
+    // inclusion
+    else if (values[j - 1] + dp[j - 1][W - weights[j - 1]] >= dp[j - 1][W])
+    {
+        cout << values[j - 1] << "(" << weights[j-1] << ") ";
+        trace_solution(values, weights, dp, W - weights[j - 1], j - 1);
+    }
+    // exclusion 2
+    else
+        trace_solution(values, weights, dp, W, j - 1);
+}
 
 int knapsack_prob(int values[], int weights[], int n, int W)
 {
-    int dp[n + 1][W + 1];
+    vector<vector<int>> dp(n + 1, vector<int>(W));
 
     // Setting 0 for col W = 0 (no knapsack capacity)
     for (int i = 0; i <= n; i++)
@@ -19,7 +38,6 @@ int knapsack_prob(int values[], int weights[], int n, int W)
     {
         for (int j = 1; j <= W; j++)
         {
-
             // w <  wi
             if (j < weights[i - 1])
                 dp[i][j] = dp[i - 1][j];
@@ -29,6 +47,8 @@ int knapsack_prob(int values[], int weights[], int n, int W)
         }
     }
 
+    cout << "Solution set value(weight) : ";
+    trace_solution(values, weights, dp, W, n);
     return dp[n][W];
 }
 
@@ -49,7 +69,8 @@ int main()
         cin >> weights[i];
 
     int opt_sol = knapsack_prob(values, weights, n, W);
-    cout << "Max profit/value : " << opt_sol;
+    cout << endl
+         << "Max profit/value : " << opt_sol;
     return 0;
 }
 
