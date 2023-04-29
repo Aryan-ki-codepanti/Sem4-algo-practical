@@ -5,21 +5,21 @@ using namespace std;
 
 class Graph
 {
-    vector<vector<int>> adj_matrix;
+    vector<vector<int>> adj_list;
     int n;
 
 public:
     Graph(int n)
     {
         this->n = n;
-        adj_matrix.resize(n);
+        adj_list.resize(n);
     }
 
     void add_edge(int u, int v)
     {
         // Undirected graph
-        adj_matrix[u].push_back(v);
-        adj_matrix[v].push_back(u);
+        adj_list[u].push_back(v);
+        adj_list[v].push_back(u);
     }
 
     void display()
@@ -27,7 +27,7 @@ public:
         for (int i = 0; i < n; i++)
         {
             cout << i << " -> ";
-            for (auto &child : adj_matrix[i])
+            for (auto &child : adj_list[i])
                 cout << child << ", ";
             cout << endl;
         }
@@ -54,7 +54,7 @@ public:
             my_queue.pop();
 
             // add unvisited children to queue and mark them visited
-            for (auto &child : adj_matrix[curr])
+            for (auto &child : adj_list[curr])
             {
                 if (!visited[child])
                 {
