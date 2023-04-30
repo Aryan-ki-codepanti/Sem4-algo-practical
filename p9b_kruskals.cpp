@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 // to maintain and union disjoint sets
@@ -80,6 +81,48 @@ public:
         for (int i = 0; i < e; i++)
             cout << edge_list[i].u << " " << edge_list[i].v << " " << edge_list[i].wt << endl;
     }
+
+    void kruskals()
+    {
+        // 1. Sorting edges by weights in increasing order
+        sort(edge_list, edge_list + e, edge_comparator);
+
+        // 2. Union find for vertices
+        UnionFind component = UnionFind(n);
+
+        bool mst[e]; // for mst edges
+        for (int i = 0; i < e; i++)
+            mst[i] = false;
+
+        // 3. Processing edges and including in mst
+
+        int x, y;
+        for (int edge = 0; edge < e; edge++)
+        {
+            x = edge_list[edge].u;
+            y = edge_list[edge].v;
+
+            if (component.find(x) != component.find(y))
+            { // they are disjoint
+                // include them to mst
+                mst[edge] = true;
+                component.union_sets(x, y); // union their sets or merge components
+            }
+        }
+
+        // print mst and cost
+        int cost = 0;
+        cout << "\nMST Edges nodeA -> nodeB" << endl;
+        for (int edge = 0; edge < e; edge++)
+        {
+            if (mst[edge])
+            {
+                cout << edge_list[edge].u << " -> " << edge_list[edge].v << endl;
+                cost += edge_list[edge].wt;
+            }
+        }
+        cout << "COST to build it : " << cost;
+    }
 };
 
 int main()
@@ -89,7 +132,7 @@ int main()
     cin >> n >> e;
     Graph g(n, e);
     g.input_weights();
-    g.display();
+    g.kruskals();
     return 0;
 }
 
