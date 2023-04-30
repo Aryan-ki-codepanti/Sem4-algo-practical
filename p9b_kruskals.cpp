@@ -1,6 +1,42 @@
 #include <iostream>
 using namespace std;
 
+// to maintain and union disjoint sets
+// for connected components
+class UnionFind
+{
+    int n;
+    int *parent; // disjoint sets
+
+public:
+    UnionFind(int n)
+    {
+        this->n = n;
+        parent = new int[n];
+
+        // initially all are separate disjoint sets of single elements
+        // parent[i] = i means set/component name
+        for (int i = 0; i < n; i++)
+            parent[i] = i;
+    }
+
+    int find(int u)
+    {
+        if (u == parent[u])
+            return u;
+        return find(parent[u]);
+    }
+
+    void union_sets(int a, int b)
+    {
+        int set_a = find(a);
+        int set_b = find(b);
+
+        // parent of set_a to set_b
+        parent[set_a] = set_b;
+    }
+};
+
 // edge construct - undirected
 class Edge
 {
@@ -8,7 +44,8 @@ public:
     int u, v, wt;
 };
 
-bool edge_comparator(Edge x, Edge y){
+bool edge_comparator(Edge x, Edge y)
+{
     return x.wt < y.wt;
 }
 
@@ -42,7 +79,6 @@ public:
     {
         for (int i = 0; i < e; i++)
             cout << edge_list[i].u << " " << edge_list[i].v << " " << edge_list[i].wt << endl;
-
     }
 };
 
@@ -70,6 +106,6 @@ int main()
 2 4 3
 4 5 2
 3 5 2
-3 4 3 
+3 4 3
 
 */
